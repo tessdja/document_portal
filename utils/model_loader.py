@@ -9,6 +9,7 @@ from langchain_groq import ChatGroq
 #from langchain_openai import ChatOpenAI
 from logger.custom_logger import CustomLogger
 from exception.custom_exception import DocumentPortalException
+
 log = CustomLogger().get_logger(__name__)
 
 class ModelLoader:
@@ -52,8 +53,8 @@ class ModelLoader:
     def load_llm(self):
         """
         Load and return the LLM model.
+        Load LLM dynamically based on provider in config.
         """
-        """Load LLM dynamically based on provider in config."""
         
         llm_block = self.config["llm"]
 
@@ -110,7 +111,7 @@ if __name__ == "__main__":
     
     # Test the ModelLoader
     result=embeddings.embed_query("Hello, how are you?")
-    print(f"Embedding Result: {result}")
+    # print(f"Embedding Result: {result}")  # uncomment to see the vector values
     
     # Test LLM loading based on YAML config
     llm = loader.load_llm()

@@ -1,17 +1,36 @@
 import traceback
 import sys
+
 from logger.custom_logger import CustomLogger
 logger=CustomLogger().get_logger(__file__)
 
 class DocumentPortalException(Exception):
     """Custom exception for Document Portal"""
-    def __init__(self,error_message):
-        _,_,exc_tb= sys.exc_info()
-        self.file_name=exc_tb.tb_frame.f_code.co_filename
-        self.lineno=exc_tb.tb_lineno
-        self.error_message=str(error_message)
-        self.traceback_str = ''.join(traceback.format_exception(*error_details.exc_info())) 
+# replace function __init__ to fix "object has no attribute 'exc_info'" (ChatGPT)
+#     def __init__(self,error_message:str,error_details:sys):
+#         # _,_,exc_tb= sys.exc_info()
+#         _,_,exc_tb= error_details.exc_info()
+#         self.file_name=exc_tb.tb_frame.f_code.co_filename
+#         self.lineno=exc_tb.tb_lineno
+#         self.error_message=str(error_message)
+#         self.traceback_str = ''.join(traceback.format_exception(*error_details.exc_info())) 
         
+    def __init__(self, error_message: str, original_exception: Exception | None = None):
+        exc_type, exc_value, exc_tb = sys.exc_info()
+
+        # If called outside an except block, fall back gracefully
+        if exc_tb is None:
+            self.file_name = "<unknown>"
+            self.lineno = -1
+            self.traceback_str = ""
+        else:
+            self.file_name = exc_tb.tb_frame.f_code.co_filename
+            self.lineno = exc_tb.tb_lineno
+            self.traceback_str = "".join(traceback.format_exception(exc_type, exc_value, exc_tb))
+
+        self.error_message = str(error_message)
+        self.original_exception = original_exception
+
     def __str__(self):
         return f"""
         Error in [{self.file_name}] at line [{self.lineno}]
@@ -19,7 +38,7 @@ class DocumentPortalException(Exception):
         Traceback:
         {self.traceback_str}
         """
-    
+
 if __name__ == "__main__":
     try:
         # Simulate an error

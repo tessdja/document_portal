@@ -14,6 +14,10 @@ class CustomLogger:
         self.log_file_path = os.path.join(self.logs_dir, log_file)
 
     def get_logger(self, name=__file__):
+        """
+        Returns a logger instance with file + console handlers.
+        Default name is current file name (without path).
+        """
         logger_name = os.path.basename(name)
 
         # Configure logging for console + file (both JSON)
@@ -21,6 +25,7 @@ class CustomLogger:
         file_handler.setLevel(logging.INFO)
         file_handler.setFormatter(logging.Formatter("%(message)s"))  # Raw JSON lines
 
+        # logs printed on the terminal
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.INFO)
         console_handler.setFormatter(logging.Formatter("%(message)s"))
@@ -37,6 +42,7 @@ class CustomLogger:
                 structlog.processors.TimeStamper(fmt="iso", utc=True, key="timestamp"),
                 structlog.processors.add_log_level,
                 structlog.processors.EventRenamer(to="event"),
+                structlog.processors.format_exc_info,   # added from ChatGPT's suggestion
                 structlog.processors.JSONRenderer()
             ],
             logger_factory=structlog.stdlib.LoggerFactory(),
