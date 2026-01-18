@@ -1,5 +1,6 @@
 langchain
 langchain_community
+langchain-classic
 langchain-text-splitters
 langchain_groq
 langchain_google_genai
