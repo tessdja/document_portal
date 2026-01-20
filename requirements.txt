@@ -1,9 +1,10 @@
-langchain
+langchain==1.2.6
+langchain_core==1.2.7
 langchain_community
 langchain-classic
 langchain-text-splitters
-langchain_groq
-langchain_google_genai
+langchain-groq
+langchain-google-genai
 faiss-cpu
 python-dotenv
 PyMuPDF
