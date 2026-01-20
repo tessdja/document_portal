@@ -15,8 +15,8 @@ class Metadata(BaseModel):
     SentimentTone: str
     
 class ChangeFormat(BaseModel):
-    Page: str
-    Changes: str
+    Page: int = Field(..., description="1-based page number")
+    Changes: str = Field(..., description="Page-wise differences. Use 'NO CHANGE' if identical.")
 
 class SummaryResponse(RootModel[list[ChangeFormat]]):
     pass
