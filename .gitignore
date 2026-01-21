@@ -6,4 +6,4 @@ logs/
 *.pyc
 test*.py
 data/
-
+faiss_index/
