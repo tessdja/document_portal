@@ -2,8 +2,8 @@ venv
 .env
 document_portal.egg-info
 __pycache__/
-# logs/
+logs/
 *.pyc
-# test*.py
-# data/
+test*.py
+data/
 
