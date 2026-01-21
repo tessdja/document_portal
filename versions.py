@@ -1,0 +1,35 @@
+import importlib.metadata
+packages = [
+    "langchain",
+    "python-dotenv",
+    "ipykernel",
+    "langchain_groq",
+    "langchain_google_genai",
+    "langchain-community",
+    "langchain-classic",
+    "langchain-text-splitters",
+    "faiss-cpu",
+    "structlog",
+    "PyMuPDF",
+    "pylint",
+    "langchain-core",
+    "pytest",
+    "streamlit",
+    "fastapi",
+    "uvicorn",
+    "python-multipart",
+    "docx2txt",
+    "pypdf",
+    "python-pptx",
+    "pandas",
+    "openpyxl",
+    "httpx", 
+    "fastapi[all]"
+
+]
+for pkg in packages:
+    try:
+        version = importlib.metadata.version(pkg)
+        print(f"{pkg}=={version}")
+    except importlib.metadata.PackageNotFoundError:
+        print(f"{pkg} (not installed)")
