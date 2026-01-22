@@ -5,8 +5,13 @@ langchain-classic==1.0.1
 langchain-text-splitters==1.1.0
 langchain_groq==1.1.1
 langchain_google_genai==4.2.0
+
 faiss-cpu==1.13.2
+fastapi==0.128.0
+uvicorn==0.40.0
+
 python-dotenv==1.2.1
+python-multipart
 PyMuPDF==1.26.7
 pypdf==6.6.0
 docx2txt==0.9
@@ -15,6 +20,8 @@ ipykernel==6.17.1
 pandas==2.3.3
 streamlit==1.53.0
 httpx==0.28.1
+pytest==9.0.2
+pylint==4.0.4
 -e .
 
 
