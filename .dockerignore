@@ -1,23 +1,60 @@
+# ---------------------------
 # Python
+# ---------------------------
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
 
+# ---------------------------
 # Virtual environments
+# ---------------------------
 env/
 venv/
 
-# Git
+# ---------------------------
+# Jupyter / notebooks
+# ---------------------------
+.ipynb_checkpoints/
+*.ipynb
+
+# ---------------------------
+# Git / VCS
+# ---------------------------
 .git
 .gitignore
 
-# Logs
+# ---------------------------
+# Logs & runtime artifacts
+# ---------------------------
 *.log
 logs/
 
-# App data / artifacts
+# ---------------------------
+# App data / experiments
+# ---------------------------
 data/
 archive/
-document_portal.egg-info/
+
+# ---------------------------
+# Packaging artifacts
+# ---------------------------
+*.egg-info/
+build/
+dist/
+
+# ---------------------------
+# Tooling / IDE
+# ---------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---------------------------
+# Tests & lint (optional)
+# ---------------------------
+.coverage
+pytest_cache/
+.mypy_cache/
