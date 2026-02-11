@@ -3,6 +3,8 @@ import logging
 from datetime import datetime
 import structlog
 
+from utils.timezone import now_utc
+
 class CustomLogger:
     # Class-level flag: ensures we configure logging only once per run
     _configured = False
@@ -19,12 +21,10 @@ class CustomLogger:
         # Local variable (temporary) for log_file if not supplied
         # Timestamped log file (for persistence)
         if log_file is None:
-            log_file = f"{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}.log"
-        
-        #log_file = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
+            # log_file = f"{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}.log"
+            log_file = f"{now_utc().strftime('%Y_%m_%d_%H_%M_%S')}.log"
 
         self.log_file_path = os.path.join(self.logs_dir, log_file)
-
 
     def get_logger(self, name=__file__):
         """

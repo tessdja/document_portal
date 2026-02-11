@@ -21,6 +21,9 @@ FAISS_BASE = os.getenv("FAISS_BASE", "faiss_index")
 UPLOAD_BASE = os.getenv("UPLOAD_BASE", "data")
 FAISS_INDEX_NAME = os.getenv("FAISS_INDEX_NAME", "index")  # <--- keep consistent with save_local()
 
+# Chat-specific bases (so chat doesn't dump sessions directly under /data or /faiss_index)
+CHAT_UPLOAD_BASE = os.getenv("CHAT_UPLOAD_BASE", str(Path(UPLOAD_BASE) / "multi_doc_chat"))
+CHAT_FAISS_BASE  = os.getenv("CHAT_FAISS_BASE",  str(Path(FAISS_BASE) / "multi_doc_chat"))
 app = FastAPI(title="Document Portal API", version="0.1")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -91,8 +94,10 @@ async def chat_build_index(
     try:
         wrapped = [FastAPIFileAdapter(f) for f in files]
         ci = ChatIngestor(
-            temp_base=UPLOAD_BASE,
-            faiss_base=FAISS_BASE,
+            # temp_base=UPLOAD_BASE,
+            # faiss_base=FAISS_BASE,
+            temp_base=CHAT_UPLOAD_BASE,
+            faiss_base=CHAT_FAISS_BASE,
             use_session_dirs=use_session_dirs,
             session_id=session_id or None,
         )
@@ -101,7 +106,14 @@ async def chat_build_index(
         ci.built_retriver(  # if your method name is actually build_retriever, fix it there as well
             wrapped, chunk_size=chunk_size, chunk_overlap=chunk_overlap, k=k
         )
-        return {"session_id": ci.session_id, "k": k, "use_session_dirs": use_session_dirs}
+        # return {"session_id": ci.session_id, "k": k, "use_session_dirs": use_session_dirs}
+        return {
+            "session_id": ci.session_id,
+            "k": k,
+            "use_session_dirs": use_session_dirs,
+            "chat_upload_base": CHAT_UPLOAD_BASE,
+            "chat_faiss_base": CHAT_FAISS_BASE,
+        }
     except HTTPException:
         raise
     except Exception as e:
@@ -119,7 +131,8 @@ async def chat_query(
         if use_session_dirs and not session_id:
             raise HTTPException(status_code=400, detail="session_id is required when use_session_dirs=True")
 
-        index_dir = os.path.join(FAISS_BASE, session_id) if use_session_dirs else FAISS_BASE  # type: ignore
+        #index_dir = os.path.join(FAISS_BASE, session_id) if use_session_dirs else FAISS_BASE  # type: ignore
+        index_dir = os.path.join(CHAT_FAISS_BASE, session_id) if use_session_dirs else CHAT_FAISS_BASE  # type: ignore
         if not os.path.isdir(index_dir):
             raise HTTPException(status_code=404, detail=f"FAISS index not found at: {index_dir}")
 
@@ -131,7 +144,8 @@ async def chat_query(
             "answer": response,
             "session_id": session_id,
             "k": k,
-            "engine": "LCEL-RAG"
+            "engine": "LCEL-RAG",
+            "index_dir": index_dir,
         }
     except HTTPException:
         raise
@@ -159,5 +173,5 @@ def _read_pdf_via_handler(handler: DocHandler, path: str) -> str:
 
 
 # command for executing the fast api
-# uvicorn api.main:app --reload    
-#uvicorn api.main:app --host 0.0.0.0 --port 8080 --reload
+# uvicorn api.main:app --port 8080 --reload    
+# uvicorn api.main:app --host 0.0.0.0 --port 8080 --reload

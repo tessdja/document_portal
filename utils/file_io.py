@@ -9,6 +9,7 @@ from typing import Iterable, List
 #from logger import GLOBAL_LOGGER as log
 from logger.custom_logger import CustomLogger
 from exception.custom_exception import DocumentPortalException
+from utils.timezone import now_utc
 
 log = CustomLogger().get_logger(__name__)
 SUPPORTED_EXTENSIONS = {".pdf", ".docx", ".txt"}
@@ -17,8 +18,9 @@ SUPPORTED_EXTENSIONS = {".pdf", ".docx", ".txt"}
 # Helpers (file I/O + loading)  #
 # ----------------------------- #
 def generate_session_id(prefix: str = "session") -> str:
-    ist = ZoneInfo("Asia/Kolkata")
-    return f"{prefix}_{datetime.now(ist).strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}"
+    # est = ZoneInfo("America/New_York")
+    # return f"{prefix}_{datetime.now(est).strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}"
+    return f"{prefix}_{now_utc().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}"
 
 def save_uploaded_files(uploaded_files: Iterable, target_dir: Path) -> List[Path]:
     """Save uploaded files (Streamlit-like) and return local paths."""
@@ -34,7 +36,7 @@ def save_uploaded_files(uploaded_files: Iterable, target_dir: Path) -> List[Path
             # Clean file name (only alphanum, dash, underscore)
             safe_name = re.sub(r'[^a-zA-Z0-9_\-]', '_', Path(name).stem).lower()
             fname = f"{safe_name}_{uuid.uuid4().hex[:6]}{ext}"
-            fname = f"{uuid.uuid4().hex[:8]}{ext}"
+            # fname = f"{uuid.uuid4().hex[:8]}{ext}"
             out = target_dir / fname
             with open(out, "wb") as f:
                 if hasattr(uf, "read"):
