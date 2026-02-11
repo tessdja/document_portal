@@ -24,7 +24,8 @@ packages = [
     "pandas",
     "openpyxl",
     "httpx", 
-    "fastapi[all]"
+    "fastapi[all]",
+    "python-multipart"
 
 ]
 for pkg in packages:

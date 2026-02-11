@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+env/
+venv/
+
+# Git
+.git
+.gitignore
+
+# Logs
+*.log
+logs/
+
+# App data / artifacts
+data/
+archive/
+document_portal.egg-info/
