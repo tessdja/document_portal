@@ -176,11 +176,11 @@ Safe zero-downtime replacement.
 
 ### Architecture Classification
 #### Current State
-✔ Single container
-✔ Rolling updates
-✔ Public IP exposure
-✔ Secrets management
-✔ Automated CI/CD
+- ✔ Single container
+- ✔ Rolling updates
+- ✔ Public IP exposure
+- ✔ Secrets management
+- ✔ Automated CI/CD
 
 #### Not Yet Implemented
 - Load Balancer (ALB)
