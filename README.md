@@ -79,4 +79,4 @@ git clone https://github.com/tessdja/mydoc_portal.git
 - [Get your API Key](https://aistudio.google.com/apikey)  
 - [Gemini Documentation](https://ai.google.dev/gemini-api/docs/models)
 
-
+# test
