@@ -89,7 +89,7 @@ jobs:
       - name: Print Rendered Task
         run: cat ${{ steps.render-task.outputs.task-definition }}
       - name: Deploy to ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v4
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.render-task.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE }}
