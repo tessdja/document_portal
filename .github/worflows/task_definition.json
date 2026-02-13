@@ -1,5 +1,5 @@
 {
-  "family": "documentportaltd",
+  "family": "documentportal-rebuild-td",
   "networkMode": "awsvpc",
   "executionRoleArn": "arn:aws:iam::793934355299:role/ecsTaskExecutionRole",
   "requiresCompatibilities": ["FARGATE"],
@@ -7,8 +7,8 @@
   "memory": "8192",
   "containerDefinitions": [
     {
-      "name": "document-portal-container",
-      "image": "793934355299.dkr.ecr.us-east-1.amazonaws.com/documentportalliveclass",
+      "name": "document-portal-rebuild-container",
+      "image": "793934355299.dkr.ecr.us-east-1.amazonaws.com/documentportal-rebuild:rebuild-v1",
       "cpu": 1024,
       "essential": true,
       "portMappings": [
