@@ -4,7 +4,7 @@ document_portal.egg-info
 __pycache__/
 logs/
 *.pyc
-test*.py
+# test*.py
 data/
 faiss_index/
 archive/
