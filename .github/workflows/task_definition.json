@@ -28,11 +28,17 @@
       ],
       "secrets": [
         {
-          "name": "API_KEYS",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:793934355299:secret:API_KEYS-qHpwiM"
-          
+          "name": "GROQ_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:793934355299:secret:API_KEYS-qHpwiM:GROQ_API_KEY::"
+        },
+        {
+          "name": "GOOGLE_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:793934355299:secret:API_KEYS-qHpwiM:GOOGLE_API_KEY::"
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:793934355299:secret:API_KEYS-qHpwiM:OPENAI_API_KEY::"
         }
-        
       ],
       "logConfiguration": {
         "logDriver": "awslogs",

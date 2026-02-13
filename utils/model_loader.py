@@ -77,6 +77,7 @@ class ModelLoader:
             llm=ChatGoogleGenerativeAI(
                 model=model_name,
                 temperature=temperature,
+                api_key=self.api_keys["GOOGLE_API_KEY"],
                 max_output_tokens=max_tokens
             )
             return llm
