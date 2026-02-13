@@ -8,7 +8,7 @@ on:
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: documentportal-rebuild
-  ECS_SERVICE: document-portal-service
+  ECS_SERVICE: documentportal-rebuild-td-service-zo7ca2lm
   ECS_CLUSTER: document-portal-cluster
   ECS_TASK_DEFINITION: .github/workflows/task_definition.json
   CONTAINER_NAME: document-portal-rebuild-container
